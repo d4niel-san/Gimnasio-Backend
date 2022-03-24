@@ -2,14 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../Models/user')
 
-router.get('/', (req, res) => {
-    res.send('Server escuchando en /')
-})
-
-router.get('/add'), (req, res) => {
-
-}
-
 router.get('/user', async (req, res) => {
     try {
         const arrayUserDB = await User.find()
@@ -21,18 +13,34 @@ router.get('/user', async (req, res) => {
     }
 })
 
-router.post('/newUser', async (req, res) => {
-    console.log("Wenas!!")
-    const newUser = req.query
-    console.log(newUser)
+router.post('/logUser', async (req, res) => {
+    const logUser = req.query
+    const email = logUser.email
+    const password = logUser.password
     try {
-        const userDB = new User(newUser)
-        await userDB.save()
-        console.log(userDB)
+        const userDB = await User.findOne({ email })
+        if (userDB.password === password)
+            res.send("Password OK")
+        else {
+            res.send("Password WRONG")
+        }
     } catch (error) {
         console.log(error)
     }
-    res.send("recibi")
+})
+
+router.post('/newUser', async (req, res) => {
+    const newUser = req.query
+    try {
+        const userDB = new User(newUser)
+        await userDB.save()
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.get('/', (req, res) => {
+    res.send('Server escuchando en /')
 })
 
 module.exports = router;
