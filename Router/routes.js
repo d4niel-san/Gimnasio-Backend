@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../Models/user')
 
-
 router.get('/', (req, res) => {
     res.send('Server escuchando en /')
 })
@@ -24,8 +23,15 @@ router.get('/user', async (req, res) => {
 
 router.post('/newUser', async (req, res) => {
     console.log("Wenas!!")
-    const body = req.body
-    console.log(body)
+    const newUser = req.query
+    console.log(newUser)
+    try {
+        const userDB = new User(newUser)
+        await userDB.save()
+        console.log(userDB)
+    } catch (error) {
+        console.log(error)
+    }
     res.send("recibi")
 })
 
