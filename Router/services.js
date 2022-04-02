@@ -1,4 +1,4 @@
-//intente separar las funciones de las rutas... no tuve exito
+const User = require('../Models/user')
 
 async function getUser(req, res) {
     try {

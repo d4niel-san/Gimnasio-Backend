@@ -1,22 +1,13 @@
-
-
-
-
-export const conectDB = () => {
-
-    //#region  Conexion a Base de Datos
+const conectDB = ({USER, PASSWORD, DBNAME}) => {
+    require('dotenv').config()
+    
     const mongoose = require('mongoose');
-
-    const user = 'admintest';
-    const password = 'boxadmin';
-    const dbname = 'LegionGym';
-    const uri = `mongodb+srv://${user}:${password}@legiongym.hmfoq.mongodb.net/${dbname}?retryWrites=true&w=majority`;
-
+    const uri = `mongodb+srv://${USER}:${PASSWORD}@legiongym.hmfoq.mongodb.net/${DBNAME}?retryWrites=true&w=majority`;
 
     mongoose.connect(uri)
-        .then(() => console.log('Base de datos conectada: ', dbname))
-        .catch(e => console.log(e))
-
-    //#endregion
+        .then(() => console.log('Base de datos conectada: ', DBNAME))
+        .catch(e => console.log(e))   
 
 }
+
+module.exports = conectDB;
