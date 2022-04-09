@@ -20,7 +20,7 @@ async function logUser(req, res) {
             return false
         } 
         if (userDB.password === password) {
-            res.send(userDB.firstName)
+            res.send(userDB)
             return false
         }
         res.send(false)
