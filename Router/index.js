@@ -1,10 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const services = require('./services')
+const services = require("./services");
 
-router.get('/', services.serverStart)
-router.get('/user', services.getUser) //ruteo y funcion de pruebas
-router.post("/newUser", services.queryUser)
-router.post('/logUser', services.logUser)
+router.get("/", services.serverStart);
+
+router.post("/newUser", services.queryUser);
+router.post("/logUser", services.logUser);
+
+router.get("/classes", services.getClasses);
 
 module.exports = router;
