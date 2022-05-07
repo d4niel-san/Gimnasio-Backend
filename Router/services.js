@@ -15,7 +15,7 @@ async function logUser(req, res) {
   const email = req.body.email;
   const password = req.body.password;
   try {
-    const userDB = await User.findOne({ email });
+    const userDB = await User.findOne({ email }).populate("classes");
     if (userDB === null) {
       res.send(false);
       return false;
@@ -49,10 +49,11 @@ async function getClasses(req, res) {
 }
 
 async function joinClass(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   const userId = req.body.userLogged._id;
   const classId = req.body.idClase;
 
+  //Esto Funciona
   const user = await User.findById(userId).exec(); //se busca en la BBDD el usuario
 
   if (!user.classes.includes(classId)) {
@@ -61,6 +62,30 @@ async function joinClass(req, res) {
     User.deleteOne({ _id: userId }); // se elimina el registro de la BBDD
     await new User(user).save(); // se levanta el nuevo registro
   }
+
+  /*
+  //Esto no funciona
+  await User.findById(userId)
+    .exec()
+    .then((response) => {
+      //console.log(response);
+      //console.log(!response.classes.includes(classId));
+      if (!response.classes.includes(classId)) {
+        console.log("Entre 1");
+        if (!response.classes) {
+          console.log("Entre 2");
+          const newClasses = [{ ...response.classes }, classId];
+          console.log(newClasses);
+          User.findOneAndUpdate({ userId }, { classes: newClasses });
+        } else {
+          console.log("Entre 3");
+          User.findOneAndUpdate({ userId }, { classes: classId });
+        }
+      } else {
+        console.log("Entre 4");
+      }
+    });
+    */
 }
 
 module.exports = {

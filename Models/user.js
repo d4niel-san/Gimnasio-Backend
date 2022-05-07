@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validate = require("mongoose-validator");
 const Schema = mongoose.Schema;
 const isEmail = validate({ validator: "isEmail" });
+const { ObjectID } = Schema.Types;
 
 const userScheme = new Schema(
   {
@@ -22,7 +23,7 @@ const userScheme = new Schema(
       enum: ["daily", "weekly", "biweekly", "monthly", "semiAnnual", "annual"],
       default: "monthly",
     },
-    classes: [],
+    classes: [{ type: ObjectID, ref: "classes" }],
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
