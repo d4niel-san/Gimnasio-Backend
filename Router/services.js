@@ -45,8 +45,22 @@ function serverStart(req, res) {
 
 async function getClasses(req, res) {
   const arrayClassesDB = await Class.find({});
-  console.log(arrayClassesDB);
   res.send(arrayClassesDB);
+}
+
+async function joinClass(req, res) {
+  console.log(req.body);
+  const userId = req.body.userLogged._id;
+  const classId = req.body.idClase;
+
+  const user = await User.findById(userId).exec(); //se busca en la BBDD el usuario
+
+  if (!user.classes.includes(classId)) {
+    //se revisa si esta o no la clase a la que se quiere unir
+    user.classes.push(classId); // se agrega la clase al user
+    User.deleteOne({ _id: userId }); // se elimina el registro de la BBDD
+    await new User(user).save(); // se levanta el nuevo registro
+  }
 }
 
 module.exports = {
@@ -55,4 +69,5 @@ module.exports = {
   logUser: logUser,
   queryUser: queryUser,
   serverStart: serverStart,
+  joinClass: joinClass,
 };
