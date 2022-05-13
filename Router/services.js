@@ -68,6 +68,30 @@ async function joinClass(req, res) {
   res.send(flagReturn);
 }
 
+async function leaveClass(req, res) {
+  const userId = req.body.userLogged._id;
+  const idClase = req.body.idClase;
+  let classes = [];
+  let flagReturn;
+
+  await User.findById(userId).then((response) => {
+    if (response.classes.includes(idClase)) {
+      flagReturn = true;
+      response.classes.forEach((element) => {
+        if (element.toString() !== idClase) {
+          classes.push(element.toString());
+        }
+      });
+      console.log(classes);
+      User.findOneAndUpdate({ userId }, { classes }).exec();
+    } else {
+      flagReturn = false;
+    }
+  });
+
+  res.send(flagReturn);
+}
+
 module.exports = {
   getClasses: getClasses,
   getUser: getUser,
@@ -75,4 +99,5 @@ module.exports = {
   queryUser: queryUser,
   serverStart: serverStart,
   joinClass: joinClass,
+  leaveClass: leaveClass,
 };

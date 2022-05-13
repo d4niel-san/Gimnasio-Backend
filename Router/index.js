@@ -9,5 +9,6 @@ router.post("/logUser", services.logUser);
 
 router.get("/classes", services.getClasses);
 router.post("/joinClass", services.joinClass);
+router.post("/leaveClass", services.leaveClass);
 
 module.exports = router;
