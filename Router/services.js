@@ -51,17 +51,21 @@ async function getClasses(req, res) {
 async function joinClass(req, res) {
   const userId = req.body.userLogged._id;
   const classes = [req.body.idClase];
+  let flagReturn;
 
   await User.findById(userId).then((response) => {
     if (response.classes.includes(classes[0])) {
-      return false;
+      flagReturn = false;
+    } else {
+      response.classes.forEach((element) => {
+        classes.push(element.toString());
+      });
+      User.findOneAndUpdate({ userId }, { classes }).exec();
+      flagReturn = true;
     }
-    response.classes.forEach((element) => {
-      classes.push(element.toString());
-    });
-    User.findOneAndUpdate({ userId }, { classes }).exec();
-    return true;
   });
+
+  res.send(flagReturn);
 }
 
 module.exports = {
