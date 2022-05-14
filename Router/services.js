@@ -2,13 +2,13 @@ const User = require("../Models/user");
 const Class = require("../Models/classes");
 
 async function getUser(req, res) {
-  try {
-    const arrayUserDB = await User.find();
-    console.log(arrayUserDB);
-    res.json(arrayUserDB);
-  } catch (error) {
-    console.log(error);
-  }
+  User.findById(req.body._id, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(user.classes);
+    }
+  }).populate("classes");
 }
 
 async function logUser(req, res) {
@@ -82,7 +82,6 @@ async function leaveClass(req, res) {
           classes.push(element.toString());
         }
       });
-      console.log(classes);
       User.findOneAndUpdate({ userId }, { classes }).exec();
     } else {
       flagReturn = false;
@@ -94,10 +93,10 @@ async function leaveClass(req, res) {
 
 module.exports = {
   getClasses: getClasses,
-  getUser: getUser,
   logUser: logUser,
   queryUser: queryUser,
   serverStart: serverStart,
   joinClass: joinClass,
   leaveClass: leaveClass,
+  getUser: getUser,
 };
