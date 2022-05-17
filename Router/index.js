@@ -8,6 +8,7 @@ router.post("/newUser", services.queryUser);
 router.post("/logUser", services.logUser);
 
 router.get("/classes", services.getClasses);
+router.post("/getUser", services.getUser);
 router.post("/joinClass", services.joinClass);
 router.post("/leaveClass", services.leaveClass);
 
