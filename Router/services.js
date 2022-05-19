@@ -60,11 +60,10 @@ async function joinClass(req, res) {
       response.classes.forEach((element) => {
         classes.push(element.toString());
       });
-      User.findOneAndUpdate({ userId }, { classes }).exec();
+      User.findOneAndUpdate({ _id: userId }, { classes }).exec();
       flagReturn = true;
     }
   });
-
   res.send(flagReturn);
 }
 
@@ -82,7 +81,7 @@ async function leaveClass(req, res) {
           classes.push(element.toString());
         }
       });
-      User.findOneAndUpdate({ userId }, { classes }).exec();
+      User.findOneAndUpdate({ _id: userId }, { classes }).exec();
     } else {
       flagReturn = false;
     }
