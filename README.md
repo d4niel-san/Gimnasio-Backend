@@ -1,6 +1,6 @@
 # Web App Gimnasio - BackEnd
 
-Aplicacion desarrollada para el "Final de Programación III" 
+Aplicacion desarrollada para el Final de "Programación III" 
 
 Tecnologias utilizadas:
 -   MongoDB
