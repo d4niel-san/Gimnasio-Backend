@@ -3,14 +3,14 @@
 Aplicacion desarrollada para el "Final de Programación III" 
 
 Tecnologias utilizadas:
-  -MongoDB
-  -Mongoose
-  -Nodemon
-  -Axios
-  -Dotenv
-  -Cors
-  -Express
-  -Bodyparser
+    MongoDB
+    Mongoose
+    Nodemon
+    Axios
+    Dotenv
+    Cors
+    Express
+    Bodyparser
 
 
 
